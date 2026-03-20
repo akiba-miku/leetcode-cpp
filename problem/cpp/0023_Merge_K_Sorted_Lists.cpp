@@ -54,7 +54,7 @@ public:
     ListNode *mergeKLists(vector<ListNode*>& lists) {
         auto cmp = [](ListNode *l1, ListNode *l2)->bool{
             return l1->val>l2->val;
-        }
+        };
         priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> pq(cmp);
         for(auto &node:lists){
             if(node) pq.push(node);
