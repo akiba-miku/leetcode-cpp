@@ -8,6 +8,8 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+// https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
@@ -24,6 +26,11 @@ public:
             slow=slow->next;
         }
         // 清除dummy & 待删除节点
-        
+        fast = slow->next;
+        slow->next = slow->next->next;
+        delete fast;
+        fast = dummy->next;
+        delete dummy;
+        return fast;
     }
 };
