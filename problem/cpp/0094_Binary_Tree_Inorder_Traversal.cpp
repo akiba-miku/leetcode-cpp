@@ -24,6 +24,20 @@ public:
 
         // 非递归解法
         stack<TreeNode*> st;
-
+        TreeNode *cur = root;
+        while(!st.empty()||cur){
+            if(cur){
+                st.push(cur);
+                cur=cur->left;
+            }
+            else
+            {
+                TreeNode *node = st.top();
+                st.pop();
+                ans.push_back(node->val);
+                cur=node->right;
+            }
+        }
+        return ans;
     }
 };
