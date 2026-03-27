@@ -1,3 +1,5 @@
+#include <vector>
+using namespace std;
 class Solution {
 public:
     // 链表找入环口的数组版本
