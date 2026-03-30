@@ -9,9 +9,8 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-
-
-#include <algorithm>
+#include <vector>
+#include <queue>
 using namespace std;
 struct TreeNode
 {
@@ -22,24 +21,27 @@ struct TreeNode
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
-class Solution
-{
+class Solution {
 public:
-    // 很重要, 美团二面
-    int maxPathSum(TreeNode *root)
-    {
-        int ans = 0x80000000;
-        auto dfs = [&](this auto &&dfs, TreeNode *root)->decltype(auto){
-            if(root == nullptr) return 0;
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(root == nullptr) return {};
+        vector<vector<int>> ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()) {
+            int sz = q.size();
+            vector<int> v;
+            for(int i=0;i<sz;i++){
+                auto node = q.front();
+                v[i] = node->val;
 
-            int leftMaxPath = max(0, dfs(root->left));
-            int rightMaxPath = max(0, dfs(root->right));
-            
-            ans = max(ans, leftMaxPath + rightMaxPath + root->val);
-
-            return root->val + max(leftMaxPath, rightMaxPath); 
-        };
-        dfs(root);
-        return ans; 
+                if(node->left)
+                    q.push(node->left);
+                if(node->right)
+                    q.push(node->right);
+            }
+            ans.push_back(v);
+        }        
+        return ans;
     }
 };
