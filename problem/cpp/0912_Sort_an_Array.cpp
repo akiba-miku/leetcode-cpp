@@ -1,3 +1,6 @@
+#include <vector>
+
+using namespace std;
 class Solution {
 public:
     // https://leetcode.cn/problems/sort-an-array/
@@ -21,5 +24,17 @@ public:
         };
         quick_sort(0,nums.size()-1);
         return nums;
+    }
+
+    vector<int> sortArray(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> help(n);
+        auto merge_sort = [&](this auto&& merge_sort,int l,int r){
+            if(l >= r) return ;
+            int m = l + ((r - l) >> 1 );
+            merge_sort(l, m);
+            merge_sort(m+1, r);
+
+        };
     }
 };

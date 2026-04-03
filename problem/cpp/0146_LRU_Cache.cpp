@@ -1,3 +1,7 @@
+#include <unordered_map>
+#include <mutex>
+
+using namespace std;
 // 本程序只是Leetcode风格 + 高粒度互斥锁 不能作为工程级别的项目
 class LRUCache {
 private:
