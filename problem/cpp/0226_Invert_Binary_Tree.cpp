@@ -18,22 +18,15 @@ struct TreeNode
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
-class Solution
-{
+// 熟悉一下递归， 几乎不会考
+class Solution {
 public:
-    TreeNode *invertTree(TreeNode *root)
-    {
-        if(!root) return nullptr;
-        auto dfs = [&](this auto &&dfs, TreeNode *node)->decltype(auto) {
-            if(!node) return nullptr;
-
-            // 后序遍历
-            TreeNode *left = dfs(node->left);
-            TreeNode *right = dfs(node->right);
-            node->left = right;
-            node->right = left;
-            return node;
-        };
-        return dfs(root);
+    TreeNode* invertTree(TreeNode* root) {
+        if(root == nullptr) return nullptr;
+        auto left = invertTree(root->left);
+        auto right = invertTree(root->right);
+        root->left = right;
+        root->right = left;
+        return root;
     }
 };

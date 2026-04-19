@@ -14,21 +14,24 @@ struct TreeNode
 class Solution {
 public:
     vector<int> ans;
-    vector<int> inorderTraversal(TreeNode* root) {
-        if(root == nullptr) return {};
+    vector<int> postorderTraversal(TreeNode* root) {
+        if(root == nullptr) return ans;
         stack<TreeNode*> st;
-        TreeNode *cur = root;
-        while(cur || !st.empty()) {
-            if(cur) {
-                st.push(cur);
-                cur = cur->left;
-            } else {
-                cur = st.top();
-                st.pop();
-                ans.push_back(cur->val);
-                cur = cur->right;
+        st.push(root);
+        // 左 右 根
+        // 根 右 左
+        while(!st.empty()) {
+            auto node = st.top();
+            st.pop();
+            ans.push_back(node->val);
+            if(node->left) {
+                st.push(node->left);
+            }
+            if(node->right) {
+                st.push(node->right);
             }
         }
+        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
